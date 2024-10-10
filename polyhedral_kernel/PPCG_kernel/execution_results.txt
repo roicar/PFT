@@ -1,0 +1,330 @@
+File: atax, Run: 1
+Output:
+0.0822640980
+0.0000815040
+
+File: atax, Run: 2
+Output:
+0.0759159000
+0.0000799680
+
+File: atax, Run: 3
+Output:
+0.0759235230
+0.0000799040
+
+File: atax, Run: 4
+Output:
+0.0721801590
+0.0000798720
+
+File: atax, Run: 5
+Output:
+0.0806545180
+0.0000817920
+
+File: atax, Run: 6
+Output:
+0.0562370750
+0.0000798720
+
+File: mvt, Run: 1
+Output:
+0.0464314170
+0.0000804800
+
+File: mvt, Run: 2
+Output:
+0.0572446750
+0.0000815360
+
+File: mvt, Run: 3
+Output:
+0.0591229680
+0.0000825280
+
+File: mvt, Run: 4
+Output:
+0.0480778180
+0.0000764800
+
+File: mvt, Run: 5
+Output:
+0.0846721630
+0.0000782720
+
+File: mvt, Run: 6
+Output:
+0.0510965650
+0.0000800640
+
+File: trmm, Run: 1
+Output:
+15.5618403070
+0.0000038080
+
+File: trmm, Run: 2
+Output:
+15.8975690650
+0.0000040960
+
+File: trmm, Run: 3
+Output:
+15.3848038400
+0.0000029440
+
+File: trmm, Run: 4
+Output:
+15.2531677240
+0.0000036800
+
+File: trmm, Run: 5
+Output:
+15.6001160410
+0.0000036800
+
+File: trmm, Run: 6
+Output:
+15.2152395520
+0.0000029120
+
+File: gesummv, Run: 1
+Output:
+0.0696896460
+0.0000666880
+
+File: gesummv, Run: 2
+Output:
+0.1066860380
+0.0000615680
+
+File: gesummv, Run: 3
+Output:
+0.1019082220
+0.0000666240
+
+File: gesummv, Run: 4
+Output:
+0.0662818660
+0.0000638400
+
+File: gesummv, Run: 5
+Output:
+0.0559931370
+0.0000632640
+
+File: gesummv, Run: 6
+Output:
+0.0825521220
+0.0000634880
+
+File: bicg, Run: 1
+Output:
+0.0458842580
+0.0000655360
+
+File: bicg, Run: 2
+Output:
+0.0456519420
+0.0000634560
+
+File: bicg, Run: 3
+Output:
+0.0727252050
+0.0000655040
+
+File: bicg, Run: 4
+Output:
+0.0760207170
+0.0000655360
+
+File: bicg, Run: 5
+Output:
+0.0458348160
+0.0000636160
+
+File: bicg, Run: 6
+Output:
+0.0746748110
+0.0000656320
+
+File: syrk, Run: 1
+Output:
+0.0746173850
+0.0106007997
+
+File: syrk, Run: 2
+Output:
+0.1120847220
+0.0104678720
+
+File: syrk, Run: 3
+Output:
+0.0614988980
+0.0109384321
+
+File: syrk, Run: 4
+Output:
+0.0787651740
+0.0104693444
+
+File: syrk, Run: 5
+Output:
+0.0629285940
+0.0105873607
+
+File: syrk, Run: 6
+Output:
+0.0879163960
+0.0145358723
+
+File: syr2k, Run: 1
+Output:
+0.0917054180
+0.0432315506
+
+File: syr2k, Run: 2
+Output:
+0.0908272630
+0.0431738235
+
+File: syr2k, Run: 3
+Output:
+0.0972920740
+0.0428840630
+
+File: syr2k, Run: 4
+Output:
+0.0920328160
+0.0396668799
+
+File: syr2k, Run: 5
+Output:
+0.1120233930
+0.0402060151
+
+File: syr2k, Run: 6
+Output:
+0.0959486220
+0.0396699533
+
+File: 2mm, Run: 1
+Output:
+0.0870826060
+0.0057293437
+
+File: 2mm, Run: 2
+Output:
+0.0762986040
+0.0057259840
+
+File: 2mm, Run: 3
+Output:
+0.0794153820
+0.0057269442
+
+File: 2mm, Run: 4
+Output:
+0.0550253030
+0.0057303039
+
+File: 2mm, Run: 5
+Output:
+0.0545143990
+0.0057280641
+
+File: 2mm, Run: 6
+Output:
+0.0822904180
+0.0057325438
+
+File: gemm, Run: 1
+Output:
+0.0752099260
+0.0028779840
+
+File: gemm, Run: 2
+Output:
+0.0538376470
+0.0028841281
+
+File: gemm, Run: 3
+Output:
+0.0532689690
+0.0028768640
+
+File: gemm, Run: 4
+Output:
+0.0790237980
+0.0028824639
+
+File: gemm, Run: 5
+Output:
+0.0504394820
+0.0028810881
+
+File: gemm, Run: 6
+Output:
+0.0752794580
+0.0028784960
+
+File: polynomialmul, Run: 1
+Output:
+0.0457705660
+0.0000368640
+
+File: polynomialmul, Run: 2
+Output:
+0.0486865040
+0.0000389120
+
+File: polynomialmul, Run: 3
+Output:
+0.0541750120
+0.0000409600
+
+File: polynomialmul, Run: 4
+Output:
+0.0814479760
+0.0000409600
+
+File: polynomialmul, Run: 5
+Output:
+0.0521706730
+0.0000397440
+
+File: polynomialmul, Run: 6
+Output:
+0.0840636590
+0.0000392320
+
+File: 3mm, Run: 1
+Output:
+0.0663993000
+0.0091797439
+
+File: 3mm, Run: 2
+Output:
+0.0778144370
+0.0091835205
+
+File: 3mm, Run: 3
+Output:
+0.0639827940
+0.0097611202
+
+File: 3mm, Run: 4
+Output:
+0.0654560390
+0.0091857919
+
+File: 3mm, Run: 5
+Output:
+0.0768172810
+0.0091805439
+
+File: 3mm, Run: 6
+Output:
+0.0853112100
+0.0091893123
+
