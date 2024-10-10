@@ -1,0 +1,4 @@
+Array size:
+A:n+1,n+1
+x:n+1
+y:n+1

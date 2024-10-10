@@ -1,0 +1,53 @@
+Statement 1 Iterators:
+i
+j
+//
+Statement 1: x1[i] += x1[i] + A[i][j] * y_1[j];
+//
+Par 1:
+n
+//
+Domain 1: [3 dims; 5 constraints]
++i                  >= 0
+-i       +n >= 0
+      +j            >= 0
+      -j + n >= 0
+//
+Reads 1:
+x1:i 
+A:i j 
+y_1:j 
+//
+Writes 1:
+x1:i 
+//
+Schedule 2:
+i j
+//
+Statement 2 Iterators:
+i
+j
+//
+Statement 2: x2[i] += x2[i] + A[j][i] * y_2[j];
+//
+Par 2:
+n
+//
+Domain 2: [3 dims; 5 constraints]
++i                  >= 0
+-i       +n >= 0
+      +j            >= 0
+      -j +n >= 0
+
+//
+Reads 2:
+x2:i 
+A:j i 
+y_2:j 
+//
+Writes 2:
+x2:i 
+//
+Schedule 2:
+i j
+//

@@ -1,0 +1,6 @@
+Array size:
+A:n,n
+B:n,n
+C:n,n
+D:n,n
+E:n,n

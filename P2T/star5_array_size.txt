@@ -1,0 +1,3 @@
+Array size:
+a:n,n
+b:n,n

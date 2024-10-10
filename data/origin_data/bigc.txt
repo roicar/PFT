@@ -1,0 +1,78 @@
+pluto_tile_parallel:
+0.0017092150
+
+
+default tvm:
+Execution time of this operator: max:0.0023187674 s   median:0.0021589604 s   min:0.0021505399 s
+
+
+bigc_ansor:
+Execution time of this operator: max:0.0000481058 s   median:0.0000443991 s   min:0.0000397409 s
+Equivalent python schedule:
+compute_i, compute_k = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_local, = s.cache_write([compute], "local")
+compute_local_i_c, compute_local_j = tuple(compute_local.op.axis) + tuple(compute_local.op.reduce_axis)
+compute_local_i_c_o_i, compute_local_i_c_i = s[compute_local].split(compute_local_i_c, factor=2)
+compute_local_i_c_o_o_i, compute_local_i_c_o_i = s[compute_local].split(compute_local_i_c_o_i, factor=4)
+compute_local_i_c_o_o_o, compute_local_i_c_o_o_i = s[compute_local].split(compute_local_i_c_o_o_i, factor=128)
+compute_local_j_o, compute_local_j_i = s[compute_local].split(compute_local_j, factor=2)
+s[compute_local].reorder(compute_local_i_c_o_o_o, compute_local_i_c_o_o_i, compute_local_j_o, compute_local_i_c_o_i, compute_local_j_i, compute_local_i_c_i)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=8)
+compute_i_o_o, compute_i_o_i = s[compute].split(compute_i_o_i, factor=128)
+s[compute].reorder(compute_i_o_o, compute_i_o_i, compute_i_i)
+s[compute_local].compute_at(s[compute], compute_i_o_i)
+compute_local, = s.cache_write([compute], "local")
+compute_local_i_c, compute_local_k = tuple(compute_local.op.axis) + tuple(compute_local.op.reduce_axis)
+compute_local_i_c_o_i, compute_local_i_c_i = s[compute_local].split(compute_local_i_c, factor=16)
+compute_local_i_c_o_o_i, compute_local_i_c_o_i = s[compute_local].split(compute_local_i_c_o_i, factor=1)
+compute_local_i_c_o_o_o, compute_local_i_c_o_o_i = s[compute_local].split(compute_local_i_c_o_o_i, factor=16)
+compute_local_k_o, compute_local_k_i = s[compute_local].split(compute_local_k, factor=1)
+s[compute_local].reorder(compute_local_i_c_o_o_o, compute_local_i_c_o_o_i, compute_local_k_o, compute_local_i_c_o_i, compute_local_k_i, compute_local_i_c_i)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=16)
+compute_i_o_o, compute_i_o_i = s[compute].split(compute_i_o_i, factor=16)
+s[compute].reorder(compute_i_o_o, compute_i_o_i, compute_i_i)
+s[compute_local].compute_at(s[compute], compute_i_o_i)
+compute_i_o_o_i_o_i_fused = s[compute].fuse(compute_i_o_o, compute_i_o_i)
+s[compute].parallel(compute_i_o_o_i_o_i_fused)
+compute_i_o_o_i_o_i_fused = s[compute].fuse(compute_i_o_o, compute_i_o_i)
+s[compute].parallel(compute_i_o_o_i_o_i_fused)
+s[compute_local].pragma(compute_local_i_c_o_o_o, "auto_unroll_max_step", 64)
+s[compute_local].pragma(compute_local_i_c_o_o_o, "unroll_explicit", True)
+s[compute_local].pragma(compute_local_i_c_o_o_o, "auto_unroll_max_step", 512)
+s[compute_local].pragma(compute_local_i_c_o_o_o, "unroll_explicit", True)
+s[compute_local].vectorize(compute_local_i_c_i)
+s[compute].vectorize(compute_i_i)
+s[compute_local].vectorize(compute_local_i_c_i)
+s[compute].vectorize(compute_i_i)
+
+
+ppcg cuda:
+0.0000636160
+
+
+gpu ansor:
+Execution time of this operator: max:0.0000626664 s   median:0.0000478190 s   min:0.0000472598 s
+Equivalent python schedule:
+compute_i, compute_k = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=1)
+compute_i_o_o_i, compute_i_o_i = s[compute].split(compute_i_o_i, factor=4)
+compute_i_o_o_o, compute_i_o_o_i = s[compute].split(compute_i_o_o_i, factor=2)
+compute_j_o, compute_j_i = s[compute].split(compute_j, factor=2)
+s[compute].reorder(compute_i_o_o_o, compute_i_o_o_i, compute_j_o, compute_i_o_i, compute_j_i, compute_i_i)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=1)
+compute_i_o_o_i, compute_i_o_i = s[compute].split(compute_i_o_i, factor=16)
+compute_i_o_o_o, compute_i_o_o_i = s[compute].split(compute_i_o_o_i, factor=1)
+compute_k_o, compute_k_i = s[compute].split(compute_k, factor=1)
+s[compute].reorder(compute_i_o_o_o, compute_i_o_o_i, compute_k_o, compute_i_o_i, compute_k_i, compute_i_i)
+compute_i_o_o_o_i_o_o_i_fused = s[compute].fuse(compute_i_o_o_o, compute_i_o_o_i)
+s[compute].parallel(compute_i_o_o_o_i_o_o_i_fused)
+compute_i_o_o_o_i_o_o_i_fused = s[compute].fuse(compute_i_o_o_o, compute_i_o_o_i)
+s[compute].parallel(compute_i_o_o_o_i_o_o_i_fused)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "auto_unroll_max_step", 16)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "unroll_explicit", True)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "auto_unroll_max_step", 16)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "unroll_explicit", True)
+s[compute].vectorize(compute_i_i)
+s[compute].vectorize(compute_i_i)

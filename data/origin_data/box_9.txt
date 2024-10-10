@@ -1,0 +1,41 @@
+pluto_tile_parallel:
+0.0022546069
+
+
+default tvm(no_tcu):Execution time of this operator: max:0.0017586161 s   median:0.0017356493 s   min:0.0017238655 s\
+
+no_tcu ansor:Execution time of this operator: max:0.0002324357 s   median:0.0002191664 s   min:0.0002146107 s
+
+
+padding ansor(no_tcu):Execution time of this operator: max:0.0000459529 s   median:0.0000436966 s   min:0.0000428051 s
+
+
+ppcg cuda:
+0.0000535680
+
+ansor gpu:Execution time of this operator: max:0.0000313977 s   median:0.0000313853 s   min:0.0000313602 s
+
+
+ansor_padding_gpu11:Execution time of this operator: max:0.0000312944 s   median:0.0000312507 s   min:0.0000312152 s
+
+
+
+
+
+
+
+
+
+
+
+
+
+default tvm(tcu):
+Execution time of this operator: max:1.5203744370 s   median:1.4547364083 s   min:1.4230185815 s
+default tvm(tcu_padding):Execution time of this operator: max:1.3792248339 s   median:1.3454231233 s   min:1.3334281781 s
+
+
+tcu ansor:
+Execution time of this operator: max:0.0426734063 s   median:0.0384720210 s   min:0.0375244246 s
+
+

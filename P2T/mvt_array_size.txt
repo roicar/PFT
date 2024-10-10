@@ -1,0 +1,6 @@
+Array size:
+A:n+1,n+1
+x1:n+1
+x2:n+1
+y_1:n+1
+y_2:n+1

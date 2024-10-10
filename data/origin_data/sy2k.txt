@@ -1,0 +1,36 @@
+pluto_tile_parallel:
+0.5155599550
+
+
+tvm default:Execution time of this operator: max:0.4659377590 s   median:0.4659377590 s   min:0.4659377590 s
+
+padding default :Execution time of this operator: max:0.4616078296 s   median:0.4616078296 s   min:0.4616078296 s
+
+
+ansor:Execution time of this operator: Execution time of this operator: Execution time of this operator: max:0.0250265583 s   median:0.0247385971 s   min:0.0224236743 s
+
+ansor padding:Execution time of this operator: max:0.0259717983 s   median:0.0258755494 s   min:0.0251238845 s
+
+ppcg cuda:
+0.0428840630
+
+
+
+gpu ansor:
+Execution time of this operator: max:0.0073761250 s   median:0.0073421489 s   min:0.0073314119 s
+Equivalent python schedule:
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i, compute_j, compute_k = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_j_o, compute_j_i = s[compute].split(compute_j, factor=32)
+s[compute].bind(compute_j_i, te.thread_axis("threadIdx.x"))
+compute_k_o, compute_k_i = s[compute].split(compute_k, factor=32)
+s[compute].bind(compute_k_i, te.thread_axis("threadIdx.x"))
+s[compute].compute_at(s[compute], compute_j_o)
+s[compute].compute_inline()
+compute_i_j_o_fused = s[compute].fuse(compute_i, compute_j_o)
+s[compute].bind(compute_i_j_o_fused, te.thread_axis("blockIdx.x"))
+s[compute].pragma(compute_i, "auto_unroll_max_step", 16)
+s[compute].pragma(compute_i, "unroll_explicit", True)
+
+padding ansor_gpu:0.007140406

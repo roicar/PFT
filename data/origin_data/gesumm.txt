@@ -1,0 +1,82 @@
+[689.72144 680.124   673.29736 ... 682.70483 669.3413  690.5227 ]
+[689.72095 680.12335 673.2975  ... 682.70483 669.3408  690.523  ]
+
+pluto_tile_parallel:
+0.0011648800
+
+
+default tvm:
+Execution time of this operator: max:0.001252611755 s   median:0.000903007367 s   min:0.000888811354 s
+
+
+
+
+gesumm_ansor:
+Execution time of this operator: max:0.000221960395 ns   median:0.000060363942 ns   min:0.000052858860 ns
+Equivalent python schedule:
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=2)
+compute_i_o_o_i, compute_i_o_i = s[compute].split(compute_i_o_i, factor=2)
+compute_i_o_o_o, compute_i_o_o_i = s[compute].split(compute_i_o_o_i, factor=2)
+compute_j_o, compute_j_i = s[compute].split(compute_j, factor=1)
+s[compute].reorder(compute_i_o_o_o, compute_i_o_o_i, compute_j_o, compute_i_o_i, compute_j_i, compute_i_i)
+compute_i_o_o_o_i_o_o_i_fused = s[compute].fuse(compute_i_o_o_o, compute_i_o_o_i)
+s[compute].parallel(compute_i_o_o_o_i_o_o_i_fused)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "auto_unroll_max_step", 16)
+s[compute].pragma(compute_i_o_o_o_i_o_o_i_fused, "unroll_explicit", True)
+
+
+ppcg cuda:
+0.0000638400
+
+
+
+gpu ansor:Execution time of this operator: max:0.000037042770s   median:0.000034797665 ns   min:0.000034783485 ns
+Equivalent python schedule:
+compute_i, compute_j = tuple(compute.op.axis) + tuple(compute.op.reduce_axis)
+compute_local, = s.cache_write([compute], "local")
+compute_local_i_c, compute_local_j = tuple(compute_local.op.axis) + tuple(compute_local.op.reduce_axis)
+compute_local_i_c_o_i, compute_local_i_c_i = s[compute_local].split(compute_local_i_c, factor=1)
+compute_local_i_c_o_o_i, compute_local_i_c_o_i = s[compute_local].split(compute_local_i_c_o_i, factor=1)
+compute_local_i_c_o_o_o_i, compute_local_i_c_o_o_i = s[compute_local].split(compute_local_i_c_o_o_i, factor=16)
+compute_local_i_c_o_o_o_o, compute_local_i_c_o_o_o_i = s[compute_local].split(compute_local_i_c_o_o_o_i, factor=1)
+compute_local_j_o_i, compute_local_j_i = s[compute_local].split(compute_local_j, factor=64)
+compute_local_j_o_o, compute_local_j_o_i = s[compute_local].split(compute_local_j_o_i, factor=1)
+s[compute_local].reorder(compute_local_i_c_o_o_o_o, compute_local_i_c_o_o_o_i, compute_local_i_c_o_o_i, compute_local_j_o_o, compute_local_j_o_i, compute_local_i_c_o_i, compute_local_j_i, compute_local_i_c_i)
+compute_i_o_i, compute_i_i = s[compute].split(compute_i, factor=1)
+compute_i_o_o_i, compute_i_o_i = s[compute].split(compute_i_o_i, factor=16)
+compute_i_o_o_o, compute_i_o_o_i = s[compute].split(compute_i_o_o_i, factor=1)
+s[compute].reorder(compute_i_o_o_o, compute_i_o_o_i, compute_i_o_i, compute_i_i)
+s[compute_local].compute_at(s[compute], compute_i_o_i)
+B_shared = s.cache_read(B, "shared", [compute_local])
+B_shared_ax0, B_shared_ax1 = tuple(B_shared.op.axis)
+s[B_shared].compute_at(s[compute_local], compute_local_j_o_o)
+x_shared = s.cache_read(x, "shared", [compute_local])
+x_shared_ax0 = tuple(x_shared.op.axis)
+s[x_shared].compute_at(s[compute_local], compute_local_j_o_o)
+A_shared = s.cache_read(A, "shared", [compute_local])
+A_shared_ax0, A_shared_ax1 = tuple(A_shared.op.axis)
+s[A_shared].compute_at(s[compute_local], compute_local_j_o_o)
+compute_i_o_o_o = s[compute].fuse(compute_i_o_o_o)
+s[compute].bind(compute_i_o_o_o, te.thread_axis("blockIdx.x"))
+compute_i_o_o_i = s[compute].fuse(compute_i_o_o_i)
+s[compute].bind(compute_i_o_o_i, te.thread_axis("vthread"))
+compute_i_o_i = s[compute].fuse(compute_i_o_i)
+s[compute].bind(compute_i_o_i, te.thread_axis("threadIdx.x"))
+B_shared_ax0_ax1_fused = s[B_shared].fuse(B_shared_ax0, B_shared_ax1)
+B_shared_ax0_ax1_fused_o, B_shared_ax0_ax1_fused_i = s[B_shared].split(B_shared_ax0_ax1_fused, factor=4)
+s[B_shared].vectorize(B_shared_ax0_ax1_fused_i)
+B_shared_ax0_ax1_fused_o_o, B_shared_ax0_ax1_fused_o_i = s[B_shared].split(B_shared_ax0_ax1_fused_o, factor=16)
+s[B_shared].bind(B_shared_ax0_ax1_fused_o_i, te.thread_axis("threadIdx.x"))
+x_shared_ax0 = s[x_shared].fuse(x_shared_ax0)
+x_shared_ax0_o, x_shared_ax0_i = s[x_shared].split(x_shared_ax0, factor=2)
+s[x_shared].vectorize(x_shared_ax0_i)
+x_shared_ax0_o_o, x_shared_ax0_o_i = s[x_shared].split(x_shared_ax0_o, factor=16)
+s[x_shared].bind(x_shared_ax0_o_i, te.thread_axis("threadIdx.x"))
+A_shared_ax0_ax1_fused = s[A_shared].fuse(A_shared_ax0, A_shared_ax1)
+A_shared_ax0_ax1_fused_o, A_shared_ax0_ax1_fused_i = s[A_shared].split(A_shared_ax0_ax1_fused, factor=4)
+s[A_shared].vectorize(A_shared_ax0_ax1_fused_i)
+A_shared_ax0_ax1_fused_o_o, A_shared_ax0_ax1_fused_o_i = s[A_shared].split(A_shared_ax0_ax1_fused_o, factor=16)
+s[A_shared].bind(A_shared_ax0_ax1_fused_o_i, te.thread_axis("threadIdx.x"))
+s[compute_local].pragma(compute_local_i_c_o_o_o_o, "auto_unroll_max_step", 512)
+s[compute_local].pragma(compute_local_i_c_o_o_o_o, "unroll_explicit", True)

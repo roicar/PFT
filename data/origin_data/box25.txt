@@ -1,0 +1,13 @@
+pluto_tile_parallel:0.0074798260
+
+default tvm:Execution time of this operator: max:0.8856171584 s   median:0.8772378556 s   min:0.8630338179 s
+
+Execution time of this operator: max:0.0002166643 s   median:0.0002154360 s   min:0.0002104337 s
+
+padding ansor:Execution time of this operator: max:0.0001369189 s   median:0.0001259047 s   min:0.0001256413 s
+
+ppcg cuda:0.0001089920
+
+gpu ansor:Execution time of this operator: max:0.0000691559 s   median:0.0000500768 s   min:0.0000491663 s
+
+gpu ansor padding:Execution time of this operator: max:0.0000706315 s   median:0.0000497954 s   min:0.0000489429 s

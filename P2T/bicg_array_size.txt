@@ -1,0 +1,5 @@
+Array size:
+A:n+1,n+1
+p:n+1
+q:n+1
+s:n+1

@@ -1,0 +1,12 @@
+pluto:1024 1024 0.0007442330
+
+pluto ansor:Execution time of this operator: Execution time of this operator: max:0.0002290248 s   median:0.0002208117 s   min:0.0001983552 s
+
+pluto ansor pading:Execution time of this operator: max:0.0001105091 s   median:0.0001056006 s   min:0.0000969267 s
+
+PPCG:0.0000179840
+
+ansor_gpu:Execution time of this operator: max:0.0000058560 s   median:0.0000058548 s   min:0.0000058505 s
+
+ansor_padding_gpu:Execution time of this operator: max:0.0000069512 s   median:0.0000069489 s   min:0.0000069126 s
+
